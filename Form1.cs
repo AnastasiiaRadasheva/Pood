@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Runtime.Remoting.Contexts;
@@ -46,10 +47,36 @@ namespace Pood
         {
 
         }
-
+        SaveFileDialog save;
+        OpenFileDialog open;
+        string extension = null;
         private void button7_Click(object sender, EventArgs e)
         {
+            open = new OpenFileDialog();
+            open.InitialDirectory = @"C:\Users\opilane\source\repos\nastjRadasheva\Pood\images";
+            open.Multiselect = true;
+            open.Filter = "Images Files(*.jpeg;*.bmp;*.png;*.jpg)|*.jpeg;*.bmp;*.png;*.jpg";
 
+            FileInfo open_info = new FileInfo(@"C:\Users\opilane\source\repos\nastjRadasheva\Pood\images" + open.FileName);
+            if (open.ShowDialog() == DialogResult.OK && Toode_txt.Text != null)
+            {
+                save = new SaveFileDialog();
+                save.InitialDirectory = Path.GetFullPath(@"..\..\images");
+                
+                save.FileName = Toode_txt.Text + Path.GetExtension(open.FileName);
+                save.Filter = "Image Files|" + "*" + Path.GetExtension(open.FileName) + "|All files|*.*";
+
+
+                if (save.ShowDialog() == DialogResult.OK && Toode_txt.Text != null)
+                {
+                    File.Copy(open.FileName, save.FileName);
+                    toode_pb.Image = Image.FromFile(save.FileName);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Puudub toode nimetus või oli vajutatud Cancel");
+            }
         }
 
         private void Kat_box_TextChanged(object sender, EventArgs e)
