@@ -107,6 +107,11 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(545, 194);
             this.dataGridView1.TabIndex = 5;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dataGridView1.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellMouseEnter);
+            this.dataGridView1.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellMouseLeave);
+            this.dataGridView1.MouseLeave += new System.EventHandler(this.dataGridView1_MouseLeave);
+            this.dataGridView1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseMove);
             // 
             // Toode_txt
             // 
@@ -158,6 +163,7 @@
             this.lisabtn.TabIndex = 12;
             this.lisabtn.Text = "Lisa";
             this.lisabtn.UseVisualStyleBackColor = true;
+            this.lisabtn.Click += new System.EventHandler(this.lisabtn_Click);
             // 
             // uuendabtn
             // 

@@ -18,6 +18,7 @@ namespace Pood
 {
     public partial class Form1 : Form
     {
+       string extension = null;
 
         SqlConnection connect = new SqlConnection(
     @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Tooded_DB.mdf;Integrated Security=True");
@@ -51,7 +52,7 @@ namespace Pood
         }
         SaveFileDialog save;
         OpenFileDialog open;
-        string extension = null;
+
         private void button7_Click(object sender, EventArgs e)
         {
             open = new OpenFileDialog();
@@ -79,11 +80,6 @@ namespace Pood
             {
                 MessageBox.Show("Puudub toode nimetus või oli vajutatud Cancel");
             }
-        }
-
-        private void Kat_box_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void Kat_box1_SelectedIndexChanged(object sender, EventArgs e)
@@ -185,6 +181,103 @@ namespace Pood
         private void toode_pb_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_MouseMove(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_MouseLeave(object sender, EventArgs e)
+        {
+
+        }
+        byte[] imageData;
+        //private void dataGridView1_MouseEnter(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    if (e.RowIndex >= 0 && e.ColumnIndex == 4)
+        //    {
+        //        imageData = dataGridView1.Rows[e.RowIndex].Cells["Bpilt"].Value as byte[];
+        //        if (imageData != null)
+        //        {
+        //            using (MemoryStream ms = new MemoryStream(imageData))
+        //            {
+        //                Image image = Image.FromStream(ms);
+        //                Loopilt(image, e.RowIndex);
+        //            }
+        //        }
+        //    }
+
+        //}
+
+        private void dataGridView1_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex == 4)
+            {
+                imageData = dataGridView1.Rows[e.RowIndex].Cells["Bpilt"].Value as byte[];
+                if (imageData != null)
+                {
+                    using (MemoryStream ms = new MemoryStream(imageData))
+                    {
+                        Image image = Image.FromStream(ms);
+                        Loopilt(image, e.RowIndex);
+                    }
+                }
+            }
+        }
+
+        private void dataGridView1_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            if (popupForm != null && !popupForm.IsDisposed)
+            {
+                popupForm.Close();
+            }
+        }
+
+        private void lisabtn_Click(object sender, EventArgs e)
+        {
+            if (Toode_txt.Text.Trim() != string.Empty &&
+        Kogus_txt.Text.Trim() != string.Empty &&
+        Hind_txt.Text.Trim() != string.Empty &&
+        Kat_box1.SelectedItem != null)
+            {
+                try
+                {
+                    connect.Open();
+                    SqlCommand command = new SqlCommand("SELECT Id FROM Kategooriatabel WHERE Kategooria_nimetus=@kat", connect);
+                    command.Parameters.AddWithValue("@kat", Kat_box1.Text);
+                    command.ExecuteNonQuery();
+                    int Id = Convert.ToInt32(command.ExecuteScalar());
+
+                    command = new SqlCommand("INSERT INTO Toodetabel (Toodenimetus, Kogus, Hind, Pilt, BPilt, Kategooriaid) " +
+                                             "VALUES (@toode, @kogus, @hind, @pilt, @bpilt, @kat)", connect);
+
+                    command.Parameters.AddWithValue("@toode", Toode_txt.Text);
+                    command.Parameters.AddWithValue("@kogus", Kogus_txt.Text);
+                    command.Parameters.AddWithValue("@hind", Hind_txt.Text);
+
+                    string extension = Path.GetExtension(open.FileName); // .jpg .png jne
+                    command.Parameters.AddWithValue("@pilt", Toode_txt.Text + extension);
+
+                    byte[] imageData = File.ReadAllBytes(open.FileName);
+                    command.Parameters.AddWithValue("@bpilt", imageData);
+
+                    command.Parameters.AddWithValue("@kat", Id);
+
+                    command.ExecuteNonQuery();
+                    connect.Close();
+                    NaitaAndmed();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Andmebaasiga viga!");
+                }
+            }
         }
 
         public void Naitakategooriad()
