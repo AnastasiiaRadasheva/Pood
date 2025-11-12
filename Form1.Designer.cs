@@ -105,7 +105,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(22, 244);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(545, 194);
+            this.dataGridView1.Size = new System.Drawing.Size(666, 194);
             this.dataGridView1.TabIndex = 5;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellMouseEnter);
@@ -157,7 +157,7 @@
             // lisabtn
             // 
             this.lisabtn.Cursor = System.Windows.Forms.Cursors.Default;
-            this.lisabtn.Location = new System.Drawing.Point(589, 244);
+            this.lisabtn.Location = new System.Drawing.Point(727, 244);
             this.lisabtn.Name = "lisabtn";
             this.lisabtn.Size = new System.Drawing.Size(75, 23);
             this.lisabtn.TabIndex = 12;
@@ -167,7 +167,7 @@
             // 
             // uuendabtn
             // 
-            this.uuendabtn.Location = new System.Drawing.Point(590, 273);
+            this.uuendabtn.Location = new System.Drawing.Point(727, 273);
             this.uuendabtn.Name = "uuendabtn";
             this.uuendabtn.Size = new System.Drawing.Size(75, 23);
             this.uuendabtn.TabIndex = 13;
@@ -176,7 +176,7 @@
             // 
             // kustutabtn
             // 
-            this.kustutabtn.Location = new System.Drawing.Point(590, 302);
+            this.kustutabtn.Location = new System.Drawing.Point(727, 302);
             this.kustutabtn.Name = "kustutabtn";
             this.kustutabtn.Size = new System.Drawing.Size(75, 27);
             this.kustutabtn.TabIndex = 14;

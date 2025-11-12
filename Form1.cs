@@ -109,12 +109,17 @@ namespace Pood
             popupForm.Show();
 
         }
-
+        
         public void NaitaAndmed()
         {
             connect.Open();
             DataTable dt_toode = new DataTable();
-            adapter_toode = new SqlDataAdapter("SELECT * from KategooriaTabel", connect);
+            adapter_toode = new SqlDataAdapter(
+    "SELECT ToodeTabel.Id, ToodeTabel.Toodenimetus, ToodeTabel.Kogus, " +
+    "ToodeTabel.Hind, ToodeTabel.Pilt, ToodeTabel.BPilt, " +
+    "KategooriaTabel.Kategooria_nimetus AS Kategooria_nimetus " +
+    "FROM ToodeTabel INNER JOIN KategooriaTabel ON ToodeTabel.Kategooriad = KategooriaTabel.Id",
+    connect);
             adapter_toode.Fill(dt_toode);
             dataGridView1.Columns.Clear();
             dataGridView1.DataSource = dt_toode;
@@ -132,7 +137,7 @@ namespace Pood
                 }
             }
             dataGridView1.Columns.Add(combo_kat);
-            toode_pb.Image = Image.FromFile(Path.Combine(Path.GetFullPath(@"..\..\images"), "rimi.jpg"));
+            toode_pb.Image = Image.FromFile(Path.Combine(Path.GetFullPath(@"..\..\images"), "rimi.png"));
             connect.Close();
 
         }
@@ -238,47 +243,60 @@ namespace Pood
                 popupForm.Close();
             }
         }
-
         private void lisabtn_Click(object sender, EventArgs e)
         {
             if (Toode_txt.Text.Trim() != string.Empty &&
-        Kogus_txt.Text.Trim() != string.Empty &&
-        Hind_txt.Text.Trim() != string.Empty &&
-        Kat_box1.SelectedItem != null)
+                Kogus_txt.Text.Trim() != string.Empty &&
+                Hind_txt.Text.Trim() != string.Empty &&
+                Kat_box1.SelectedItem != null)
             {
                 try
                 {
+                    if (open == null || string.IsNullOrEmpty(open.FileName))
+                    {
+                        MessageBox.Show("Palun vali esmalt toote pilt!", "Viga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
                     connect.Open();
-                    SqlCommand command = new SqlCommand("SELECT Id FROM Kategooriatabel WHERE Kategooria_nimetus=@kat", connect);
+
+                    SqlCommand command = new SqlCommand(
+                        "SELECT Id FROM KategooriaTabel WHERE Kategooria_nimetus=@kat", connect);
                     command.Parameters.AddWithValue("@kat", Kat_box1.Text);
-                    command.ExecuteNonQuery();
                     int Id = Convert.ToInt32(command.ExecuteScalar());
 
-                    command = new SqlCommand("INSERT INTO Toodetabel (Toodenimetus, Kogus, Hind, Pilt, BPilt, Kategooriaid) " +
-                                             "VALUES (@toode, @kogus, @hind, @pilt, @bpilt, @kat)", connect);
+                    command = new SqlCommand(
+                        "INSERT INTO ToodeTabel (Toodenimetus, Kogus, Hind, Pilt, BPilt, Kategooriad) " +
+                        "VALUES (@toode, @kogus, @hind, @pilt, @bpilt, @kat)", connect);
 
                     command.Parameters.AddWithValue("@toode", Toode_txt.Text);
                     command.Parameters.AddWithValue("@kogus", Kogus_txt.Text);
-                    command.Parameters.AddWithValue("@hind", Hind_txt.Text);
+                    command.Parameters.AddWithValue("@hind",Hind_txt.Text);
 
-                    string extension = Path.GetExtension(open.FileName); // .jpg .png jne
+                    string extension = Path.GetExtension(open.FileName);
                     command.Parameters.AddWithValue("@pilt", Toode_txt.Text + extension);
 
                     byte[] imageData = File.ReadAllBytes(open.FileName);
                     command.Parameters.AddWithValue("@bpilt", imageData);
-
                     command.Parameters.AddWithValue("@kat", Id);
 
                     command.ExecuteNonQuery();
                     connect.Close();
+
                     NaitaAndmed();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Andmebaasiga viga!");
+                    MessageBox.Show("Andmebaasiga viga! " + ex.Message);
                 }
             }
+            else
+            {
+                MessageBox.Show("Palun täida kõik väljad!", "Viga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
+
+
 
         public void Naitakategooriad()
         {
