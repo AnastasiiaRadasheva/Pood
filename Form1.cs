@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Runtime.Remoting.Contexts;
@@ -25,6 +26,8 @@ namespace Pood
         public Form1()
         {
             InitializeComponent();
+            NaitaAndmed();
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -46,10 +49,36 @@ namespace Pood
         {
 
         }
-
+        SaveFileDialog save;
+        OpenFileDialog open;
+        string extension = null;
         private void button7_Click(object sender, EventArgs e)
         {
+            open = new OpenFileDialog();
+            open.InitialDirectory = @"C:\Users\opilane\source\repos\nastjRadasheva\Pood\images";
+            open.Multiselect = true;
+            open.Filter = "Images Files(*.jpeg;*.bmp;*.png;*.jpg)|*.jpeg;*.bmp;*.png;*.jpg";
 
+            FileInfo open_info = new FileInfo(@"C:\Users\opilane\source\repos\nastjRadasheva\Pood\images" + open.FileName);
+            if (open.ShowDialog() == DialogResult.OK && Toode_txt.Text != null)
+            {
+                save = new SaveFileDialog();
+                save.InitialDirectory = Path.GetFullPath(@"..\..\images");
+                
+                save.FileName = Toode_txt.Text + Path.GetExtension(open.FileName);
+                save.Filter = "Image Files|" + "*" + Path.GetExtension(open.FileName) + "|All files|*.*";
+
+
+                if (save.ShowDialog() == DialogResult.OK && Toode_txt.Text != null)
+                {
+                    File.Copy(open.FileName, save.FileName);
+                    toode_pb.Image = Image.FromFile(save.FileName);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Puudub toode nimetus või oli vajutatud Cancel");
+            }
         }
 
         private void Kat_box_TextChanged(object sender, EventArgs e)
@@ -59,6 +88,56 @@ namespace Pood
 
         private void Kat_box1_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+        }
+
+        Form popupForm;
+        private void Loopilt(Image image, int r)
+        {
+            popupForm = new Form();
+            popupForm.FormBorderStyle = FormBorderStyle.None;
+            popupForm.StartPosition = FormStartPosition.Manual;
+            popupForm.Size = new Size(200, 200);
+
+            PictureBox pictureBox = new PictureBox();
+            pictureBox.Image = image;
+            pictureBox.Dock = DockStyle.Fill;
+            pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+
+            popupForm.Controls.Add(pictureBox);
+
+            System.Drawing.Rectangle cellRectangle = dataGridView1.GetCellDisplayRectangle(4, r, true);
+            System.Drawing.Point popupLocation = dataGridView1.PointToScreen(cellRectangle.Location);
+
+            popupForm.Location = new System.Drawing.Point(popupLocation.X + cellRectangle.Width, popupLocation.Y);
+            popupForm.Show();
+
+        }
+
+        public void NaitaAndmed()
+        {
+            connect.Open();
+            DataTable dt_toode = new DataTable();
+            adapter_toode = new SqlDataAdapter("SELECT * from KategooriaTabel", connect);
+            adapter_toode.Fill(dt_toode);
+            dataGridView1.Columns.Clear();
+            dataGridView1.DataSource = dt_toode;
+            DataGridViewComboBoxColumn combo_kat = new DataGridViewComboBoxColumn();
+            combo_kat.DataPropertyName = "Kategooria_nimetus";
+            HashSet<string> keys = new HashSet<string>();
+            foreach (DataRow item in dt_toode.Rows)
+            {
+                string kat_n = item["Kategooria_nimetus"].ToString();
+                if(!keys.Contains(kat_n))
+                {
+                    keys.Add(kat_n);
+                    combo_kat.Items.Add(kat_n);
+
+                }
+            }
+            dataGridView1.Columns.Add(combo_kat);
+            toode_pb.Image = Image.FromFile(Path.Combine(Path.GetFullPath(@"..\..\images"), "rimi.jpg"));
+            connect.Close();
 
         }
         private void lisaKATbtn_Click(object sender, EventArgs e)
@@ -101,6 +180,11 @@ namespace Pood
                 Kat_box1.Items.Clear();
                 Naitakategooriad();
             }
+        }
+
+        private void toode_pb_Click(object sender, EventArgs e)
+        {
+
         }
 
         public void Naitakategooriad()

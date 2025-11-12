@@ -60,6 +60,7 @@
             this.toode_pb.Size = new System.Drawing.Size(332, 188);
             this.toode_pb.TabIndex = 0;
             this.toode_pb.TabStop = false;
+            this.toode_pb.Click += new System.EventHandler(this.toode_pb_Click);
             // 
             // toode
             // 
