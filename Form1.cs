@@ -28,7 +28,7 @@ namespace Pood
         {
             InitializeComponent();
             NaitaAndmed();
-
+            Naitakategooriad();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -48,7 +48,14 @@ namespace Pood
 
         private void button6_Click(object sender, EventArgs e)
         {
-
+            Toode_txt.Text = "";
+            Kogus_txt.Text = "";
+            Hind_txt.Text = "";
+            Kat_box1.SelectedItem = null;
+            using (FileStream fs = new FileStream(Path.Combine(Path.GetFullPath(@"..\..\images"), "rimi.png"), FileMode.Open, FileAccess.Read))
+            {
+                toode_pb.Image = Image.FromStream(fs);
+            }
         }
         SaveFileDialog save;
         OpenFileDialog open;
@@ -139,7 +146,6 @@ namespace Pood
             dataGridView1.Columns.Add(combo_kat);
             toode_pb.Image = Image.FromFile(Path.Combine(Path.GetFullPath(@"..\..\images"), "rimi.png"));
             connect.Close();
-
         }
         private void lisaKATbtn_Click(object sender, EventArgs e)
         {
@@ -296,7 +302,136 @@ namespace Pood
             }
         }
 
+        private void kustutabtn_Click(object sender, EventArgs e)
+        {
+            int  Id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
+            MessageBox.Show(Id.ToString());
+            if(Id !=0)
+            {
+                command = new SqlCommand("DELETE FROM ToodeTabel WHERE Id=@id", connect);
 
+                connect.Open();
+                command.Parameters.AddWithValue("@id", Id);
+                command.ExecuteNonQuery();
+                connect.Close();
+                NaitaAndmed() ;
+                MessageBox.Show("Andmed tabelist Tooded on Kustatud");
+
+
+            }
+            else
+            {
+                MessageBox.Show("Viga Tooted tabelist admete kustutamisega");
+            }
+        }
+
+        private void uuendabtn_Click(object sender, EventArgs e)
+        {
+            if (Toode_txt.Text != "" && Kogus_txt.Text != "" && Hind_txt.Text != "" && toode_pb.Image != null)
+            {
+                
+                    int Id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
+
+                    string file_pilt = Toode_txt.Text + extension;
+
+                    MemoryStream ms = new MemoryStream();
+                    toode_pb.Image.Save(ms, toode_pb.Image.RawFormat);
+                    byte[] imgBytes = ms.ToArray();
+
+                    using (SqlCommand command = new SqlCommand(
+                        "UPDATE ToodeTabel SET Toodenimetus=@toode, Kogus=@kogus, Hind=@hind, Pilt=@pilt, BPilt=@BPilt WHERE Id=@id",
+                        connect))
+                    {
+                        command.Parameters.AddWithValue("@id", Id);
+                        command.Parameters.AddWithValue("@toode", Toode_txt.Text);
+                        command.Parameters.AddWithValue("@kogus", Convert.ToInt32(Kogus_txt.Text));
+                        command.Parameters.AddWithValue("@hind", Convert.ToDouble(Hind_txt.Text));
+                        command.Parameters.AddWithValue("@pilt", file_pilt);
+                        command.Parameters.Add("@BPilt", SqlDbType.VarBinary).Value = imgBytes;
+
+                        connect.Open();
+                        command.ExecuteNonQuery();
+                        connect.Close();
+                    }
+
+                    NaitaAndmed();
+                    MessageBox.Show("Andmed uuendatud");
+                
+                
+            }
+            else
+            {
+                MessageBox.Show("Palun täida kõik väljad ja lisa pilt");
+            }
+        }
+
+        private void naitabtn_Click(object sender, EventArgs e)
+        {
+            this.Size = new Size(1350, 600);
+
+            // Создаем TabControl
+            TabControl kategooriad = new TabControl();
+            kategooriad.Name = "Kategooriad";
+            kategooriad.Width = 450;
+            kategooriad.Height = this.Height;
+            kategooriad.Location = new System.Drawing.Point(900, 0);
+
+            connect.Open();
+
+            // Загружаем категории
+            SqlDataAdapter adapter_kategooria = new SqlDataAdapter(
+                "SELECT Id, Kategooria_nimetus FROM KategooriaTabel", connect);
+            DataTable dt_kat = new DataTable();
+            adapter_kategooria.Fill(dt_kat);
+
+            // ImageList для вкладок
+            ImageList iconsList = new ImageList();
+            iconsList.ColorDepth = ColorDepth.Depth32Bit;
+            iconsList.ImageSize = new Size(25, 25);
+
+            int i = 0;
+            foreach (DataRow nimetus in dt_kat.Rows)
+            {
+                // Добавляем вкладку
+                kategooriad.TabPages.Add((string)nimetus["Kategooria_nimetus"]);
+                kategooriad.TabPages[i].ImageIndex = i;
+
+                // Получаем Id категории
+                int kat_Id = (int)nimetus["Id"];
+
+                // Загружаем файлы прямо здесь
+                SqlDataAdapter adapter_failid = new SqlDataAdapter(
+                    "SELECT Pilt FROM ToodeTabel WHERE Kategooriad=@id", connect);
+                adapter_failid.SelectCommand.Parameters.AddWithValue("@id", kat_Id);
+                DataTable dt_failid = new DataTable();
+                adapter_failid.Fill(dt_failid);
+
+                int r = 0;
+                int c = 0;
+
+                foreach (DataRow fail in dt_failid.Rows)
+                {
+                    if (fail["Pilt"] != DBNull.Value)
+                    {
+                        PictureBox pictureBox = new PictureBox();
+                        pictureBox.Image = Image.FromFile(@"..\..\Images\" + fail["Pilt"].ToString());
+                        pictureBox.Width = pictureBox.Height = 100;
+                        pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                        pictureBox.Location = new System.Drawing.Point(c, r);
+
+                        c += 100 + 2; // следующий элемент справа
+                        kategooriad.TabPages[i].Controls.Add(pictureBox);
+                    }
+                }
+
+                i++;
+            }
+
+            kategooriad.ImageList = iconsList;
+            connect.Close();
+            this.Controls.Add(kategooriad);
+
+        }
 
         public void Naitakategooriad()
         {
@@ -319,6 +454,7 @@ namespace Pood
             }
             connect.Close();
         }
-        
+
+
     }
 }

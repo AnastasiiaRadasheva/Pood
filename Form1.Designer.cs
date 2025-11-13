@@ -49,6 +49,7 @@
             this.button8 = new System.Windows.Forms.Button();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.Kat_box1 = new System.Windows.Forms.ComboBox();
+            this.naitabtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.toode_pb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -57,7 +58,7 @@
             // 
             this.toode_pb.Location = new System.Drawing.Point(22, 21);
             this.toode_pb.Name = "toode_pb";
-            this.toode_pb.Size = new System.Drawing.Size(332, 188);
+            this.toode_pb.Size = new System.Drawing.Size(442, 188);
             this.toode_pb.TabIndex = 0;
             this.toode_pb.TabStop = false;
             this.toode_pb.Click += new System.EventHandler(this.toode_pb_Click);
@@ -65,7 +66,7 @@
             // toode
             // 
             this.toode.AutoSize = true;
-            this.toode.Location = new System.Drawing.Point(527, 37);
+            this.toode.Location = new System.Drawing.Point(650, 9);
             this.toode.Name = "toode";
             this.toode.Size = new System.Drawing.Size(41, 13);
             this.toode.TabIndex = 1;
@@ -75,7 +76,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(528, 70);
+            this.label2.Location = new System.Drawing.Point(650, 48);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(40, 13);
             this.label2.TabIndex = 2;
@@ -84,7 +85,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(535, 101);
+            this.label3.Location = new System.Drawing.Point(650, 92);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(32, 13);
             this.label3.TabIndex = 3;
@@ -93,7 +94,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(501, 131);
+            this.label4.Location = new System.Drawing.Point(650, 131);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(67, 13);
             this.label4.TabIndex = 4;
@@ -105,7 +106,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(22, 244);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(666, 194);
+            this.dataGridView1.Size = new System.Drawing.Size(695, 194);
             this.dataGridView1.TabIndex = 5;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellMouseEnter);
@@ -115,30 +116,30 @@
             // 
             // Toode_txt
             // 
-            this.Toode_txt.Location = new System.Drawing.Point(590, 37);
+            this.Toode_txt.Location = new System.Drawing.Point(651, 25);
             this.Toode_txt.Name = "Toode_txt";
-            this.Toode_txt.Size = new System.Drawing.Size(212, 20);
+            this.Toode_txt.Size = new System.Drawing.Size(174, 20);
             this.Toode_txt.TabIndex = 6;
             // 
             // Kogus_txt
             // 
-            this.Kogus_txt.Location = new System.Drawing.Point(589, 70);
+            this.Kogus_txt.Location = new System.Drawing.Point(651, 69);
             this.Kogus_txt.Name = "Kogus_txt";
-            this.Kogus_txt.Size = new System.Drawing.Size(211, 20);
+            this.Kogus_txt.Size = new System.Drawing.Size(175, 20);
             this.Kogus_txt.TabIndex = 7;
             // 
             // Hind_txt
             // 
-            this.Hind_txt.Location = new System.Drawing.Point(589, 101);
+            this.Hind_txt.Location = new System.Drawing.Point(651, 108);
             this.Hind_txt.Name = "Hind_txt";
-            this.Hind_txt.Size = new System.Drawing.Size(211, 20);
+            this.Hind_txt.Size = new System.Drawing.Size(173, 20);
             this.Hind_txt.TabIndex = 8;
             // 
             // lisaKATbtn
             // 
-            this.lisaKATbtn.Location = new System.Drawing.Point(589, 189);
+            this.lisaKATbtn.Location = new System.Drawing.Point(466, 175);
             this.lisaKATbtn.Name = "lisaKATbtn";
-            this.lisaKATbtn.Size = new System.Drawing.Size(99, 34);
+            this.lisaKATbtn.Size = new System.Drawing.Size(89, 34);
             this.lisaKATbtn.TabIndex = 10;
             this.lisaKATbtn.Text = "Lisa kategooriat";
             this.lisaKATbtn.UseVisualStyleBackColor = true;
@@ -146,9 +147,9 @@
             // 
             // kustutaKATbtn
             // 
-            this.kustutaKATbtn.Location = new System.Drawing.Point(704, 188);
+            this.kustutaKATbtn.Location = new System.Drawing.Point(561, 175);
             this.kustutaKATbtn.Name = "kustutaKATbtn";
-            this.kustutaKATbtn.Size = new System.Drawing.Size(95, 34);
+            this.kustutaKATbtn.Size = new System.Drawing.Size(84, 34);
             this.kustutaKATbtn.TabIndex = 11;
             this.kustutaKATbtn.Text = "Kustuta kategooriat";
             this.kustutaKATbtn.UseVisualStyleBackColor = true;
@@ -157,7 +158,7 @@
             // lisabtn
             // 
             this.lisabtn.Cursor = System.Windows.Forms.Cursors.Default;
-            this.lisabtn.Location = new System.Drawing.Point(727, 244);
+            this.lisabtn.Location = new System.Drawing.Point(749, 244);
             this.lisabtn.Name = "lisabtn";
             this.lisabtn.Size = new System.Drawing.Size(75, 23);
             this.lisabtn.TabIndex = 12;
@@ -167,29 +168,31 @@
             // 
             // uuendabtn
             // 
-            this.uuendabtn.Location = new System.Drawing.Point(727, 273);
+            this.uuendabtn.Location = new System.Drawing.Point(749, 273);
             this.uuendabtn.Name = "uuendabtn";
             this.uuendabtn.Size = new System.Drawing.Size(75, 23);
             this.uuendabtn.TabIndex = 13;
             this.uuendabtn.Text = "Uuenda";
             this.uuendabtn.UseVisualStyleBackColor = true;
+            this.uuendabtn.Click += new System.EventHandler(this.uuendabtn_Click);
             // 
             // kustutabtn
             // 
-            this.kustutabtn.Location = new System.Drawing.Point(727, 302);
+            this.kustutabtn.Location = new System.Drawing.Point(749, 302);
             this.kustutabtn.Name = "kustutabtn";
             this.kustutabtn.Size = new System.Drawing.Size(75, 27);
             this.kustutabtn.TabIndex = 14;
             this.kustutabtn.Text = "Kustuta";
             this.kustutabtn.UseVisualStyleBackColor = true;
+            this.kustutabtn.Click += new System.EventHandler(this.kustutabtn_Click);
             // 
             // puhustaBTN
             // 
-            this.puhustaBTN.Location = new System.Drawing.Point(724, 159);
+            this.puhustaBTN.Location = new System.Drawing.Point(750, 174);
             this.puhustaBTN.Name = "puhustaBTN";
-            this.puhustaBTN.Size = new System.Drawing.Size(75, 23);
+            this.puhustaBTN.Size = new System.Drawing.Size(78, 23);
             this.puhustaBTN.TabIndex = 15;
-            this.puhustaBTN.Text = "Puhusta";
+            this.puhustaBTN.Text = "Puhusta Kõik";
             this.puhustaBTN.UseVisualStyleBackColor = true;
             this.puhustaBTN.Click += new System.EventHandler(this.button6_Click);
             // 
@@ -205,7 +208,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(114, 215);
+            this.button8.Location = new System.Drawing.Point(120, 215);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(75, 23);
             this.button8.TabIndex = 17;
@@ -215,25 +218,36 @@
             // textBox5
             // 
             this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox5.Location = new System.Drawing.Point(195, 218);
+            this.textBox5.Location = new System.Drawing.Point(201, 218);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(151, 20);
+            this.textBox5.Size = new System.Drawing.Size(85, 20);
             this.textBox5.TabIndex = 18;
             // 
             // Kat_box1
             // 
             this.Kat_box1.FormattingEnabled = true;
-            this.Kat_box1.Location = new System.Drawing.Point(589, 132);
+            this.Kat_box1.Location = new System.Drawing.Point(653, 147);
             this.Kat_box1.Name = "Kat_box1";
-            this.Kat_box1.Size = new System.Drawing.Size(209, 21);
+            this.Kat_box1.Size = new System.Drawing.Size(175, 21);
             this.Kat_box1.TabIndex = 19;
             this.Kat_box1.SelectedIndexChanged += new System.EventHandler(this.Kat_box1_SelectedIndexChanged);
+            // 
+            // naitabtn
+            // 
+            this.naitabtn.Location = new System.Drawing.Point(651, 174);
+            this.naitabtn.Name = "naitabtn";
+            this.naitabtn.Size = new System.Drawing.Size(80, 22);
+            this.naitabtn.TabIndex = 20;
+            this.naitabtn.Text = "Näita Kõik";
+            this.naitabtn.UseVisualStyleBackColor = true;
+            this.naitabtn.Click += new System.EventHandler(this.naitabtn_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(837, 450);
+            this.Controls.Add(this.naitabtn);
             this.Controls.Add(this.Kat_box1);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.button8);
@@ -285,6 +299,7 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.ComboBox Kat_box1;
+        private System.Windows.Forms.Button naitabtn;
     }
 }
 
