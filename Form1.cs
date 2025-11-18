@@ -364,10 +364,10 @@ namespace Pood
                 MessageBox.Show("Palun täida kõik väljad ja lisa pilt");
             }
         }
-
+        private TabControl ostukorvTabControl;
         private void naitabtn_Click(object sender, EventArgs e)
         {
-            this.Size = new Size(1350, 600);
+            this.Size = new Size(1350, 500);
 
             // Создаем TabControl
             TabControl kategooriad = new TabControl();
@@ -431,6 +431,165 @@ namespace Pood
             connect.Close();
             this.Controls.Add(kategooriad);
 
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(otsToode.Text))
+            {
+                MessageBox.Show("Введите название товара!");
+                return;
+            }
+
+            try
+            {
+                connect.Open();
+
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT Toodenimetus FROM ToodeTabel WHERE Toodenimetus LIKE @name",
+                    connect);
+
+                cmd.Parameters.AddWithValue("@name", "%" + otsToode.Text + "%");
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                connect.Close();
+
+                if (dt.Rows.Count == 0)
+                {
+                    MessageBox.Show("Ничего не найдено!");
+                    return;
+                }
+
+                // создаем всплывающую таблицу
+                Form popup = new Form();
+                popup.Text = "Результаты поиска";
+                popup.Size = new Size(300, 300);
+
+                DataGridView dgv = new DataGridView();
+                dgv.Dock = DockStyle.Fill;
+                dgv.DataSource = dt;
+                popup.Controls.Add(dgv);
+
+                popup.StartPosition = FormStartPosition.CenterParent;
+                popup.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                connect.Close();
+                MessageBox.Show("Ошибка: " + ex.Message);
+            }
+        }
+
+
+
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Hind_txt_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Kogus_txt_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Предположим, что у вас есть выбранный товар, например, из DataGridView или другого источника
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
+
+                // Создаем новую вкладку
+                TabPage newTab = new TabPage(selectedRow.Cells["Toodenimetus"].Value.ToString());
+
+                // Добавляем изображение
+                byte[] imgBytes = selectedRow.Cells["BPilt"].Value as byte[];
+                if (imgBytes != null)
+                {
+                    using (MemoryStream ms = new MemoryStream(imgBytes))
+                    {
+                        PictureBox pb = new PictureBox();
+                        pb.Image = Image.FromStream(ms);
+                        pb.Dock = DockStyle.Fill;
+                        newTab.Controls.Add(pb);
+                    }
+                }
+
+                // Добавляем вкладку в существующий TabControl
+                if (ostukorvTabControl != null)
+                {
+                    ostukorvTabControl.TabPages.Add(newTab);
+                }
+                else
+                {
+                    MessageBox.Show("Ostukorv ei ole veel loodud. Vajadusel klõpsa 'ostukorv' nuppu.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Palun vali toode, mida soovid lisada ostukorvi.");
+            }
+        }
+
+        private void label1_Click_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_3(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ostukorv_Click(object sender, EventArgs e)
+        {
+            // Создаем новый TabControl или очищаем существующий
+            if (ostukorvTabControl != null)
+            {
+                this.Controls.Remove(ostukorvTabControl);
+                ostukorvTabControl.Dispose();
+            }
+            ostukorvTabControl = new TabControl();
+            ostukorvTabControl.Size = new Size(1300, 500);
+            ostukorvTabControl.Location = new Point(900, 0); // или другое расположение
+            this.Controls.Add(ostukorvTabControl);
+
+            // Добавляем выбранные товары в корзину
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                string name = row.Cells["Toodenimetus"].Value?.ToString();
+                if (string.IsNullOrEmpty(name)) continue;
+
+                TabPage tabPage = new TabPage(name);
+                byte[] imgBytes = row.Cells["BPilt"].Value as byte[];
+                if (imgBytes != null)
+                {
+                    using (MemoryStream ms = new MemoryStream(imgBytes))
+                    {
+                        PictureBox pb = new PictureBox();
+                        pb.Image = Image.FromStream(ms);
+                        pb.Dock = DockStyle.Fill;
+                        tabPage.Controls.Add(pb);
+                    }
+                }
+                ostukorvTabControl.TabPages.Add(tabPage);
+            }
         }
 
         public void Naitakategooriad()
