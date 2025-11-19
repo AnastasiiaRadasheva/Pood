@@ -21,7 +21,10 @@ namespace Pood
             NaitaAndmed();
         }
         SqlConnection connect = new SqlConnection(
-    @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Tooded_DB.mdf;Integrated Security=True");
+    @"Data Source=(LocalDB)\MSSQLLocalDB;
+AttachDbFilename=C:\Users\edw1e\source\repos\Pood\Tooded_DB.mdf;
+Integrated Security=True;
+Connect Timeout=30;");
         SqlDataAdapter adapter_toode;
         SqlCommand command;
 
@@ -176,83 +179,83 @@ namespace Pood
         private TabControl ostukorvTabControl;
 
 
-        private void ostukorv_Click_1(object sender, EventArgs e)
-        {
+        //private void ostukorv_Click_1(object sender, EventArgs e)
+        //{
 
 
-            // Создаем TabControl
-            TabControl kategooriad = new TabControl();
-            kategooriad.Name = "Kategooriad";
-            kategooriad.Width = 250;
-            kategooriad.Height = 200;
-            kategooriad.Location = new System.Drawing.Point(12, 230);
+        //    // Создаем TabControl
+        //    TabControl kategooriad = new TabControl();
+        //    kategooriad.Name = "Kategooriad";
+        //    kategooriad.Width = 250;
+        //    kategooriad.Height = 200;
+        //    kategooriad.Location = new System.Drawing.Point(12, 230);
 
-            connect.Open();
+        //    connect.Open();
 
-            // Загружаем категории
-            SqlDataAdapter adapter_kategooria = new SqlDataAdapter(
-                "SELECT Id, Kategooria_nimetus FROM KategooriaTabel", connect);
-            DataTable dt_kat = new DataTable();
-            adapter_kategooria.Fill(dt_kat);
+        //    // Загружаем категории
+        //    SqlDataAdapter adapter_kategooria = new SqlDataAdapter(
+        //        "SELECT Id, Kategooria_nimetus FROM KategooriaTabel", connect);
+        //    DataTable dt_kat = new DataTable();
+        //    adapter_kategooria.Fill(dt_kat);
 
-            // ImageList для вкладок
-            ImageList iconsList = new ImageList();
-            iconsList.ColorDepth = ColorDepth.Depth32Bit;
-            iconsList.ImageSize = new Size(25, 25);
+        //    // ImageList для вкладок
+        //    ImageList iconsList = new ImageList();
+        //    iconsList.ColorDepth = ColorDepth.Depth32Bit;
+        //    iconsList.ImageSize = new Size(25, 25);
 
-            kategooriad.TabPages.Add(("Kategooria_nimetus"));
-            int i = 0;
-            //foreach (DataRow nimetus in dt_kat.Rows)
-            //{
-            //    // Добавляем вкладку
-            //    kategooriad.TabPages.Add((string)nimetus["Kategooria_nimetus"]);
-            //    kategooriad.TabPages[i].ImageIndex = i;
+        //    kategooriad.TabPages.Add(("Kategooria_nimetus"));
+        //    int i = 0;
+        //    //foreach (DataRow nimetus in dt_kat.Rows)
+        //    //{
+        //    //    // Добавляем вкладку
+        //    //    kategooriad.TabPages.Add((string)nimetus["Kategooria_nimetus"]);
+        //    //    kategooriad.TabPages[i].ImageIndex = i;
 
-            //    // Получаем Id категории
-            //    int kat_Id = (int)nimetus["Id"];
+        //    //    // Получаем Id категории
+        //    //    int kat_Id = (int)nimetus["Id"];
 
-            //    // Загружаем файлы прямо здесь
-            //    SqlDataAdapter adapter_failid = new SqlDataAdapter(
-            //        "SELECT Pilt FROM ToodeTabel WHERE Kategooriad=@id", connect);
-            //    adapter_failid.SelectCommand.Parameters.AddWithValue("@id", kat_Id);
-            //    DataTable dt_failid = new DataTable();
-            //    adapter_failid.Fill(dt_failid);
+        //    //    // Загружаем файлы прямо здесь
+        //    //    SqlDataAdapter adapter_failid = new SqlDataAdapter(
+        //    //        "SELECT Pilt FROM ToodeTabel WHERE Kategooriad=@id", connect);
+        //    //    adapter_failid.SelectCommand.Parameters.AddWithValue("@id", kat_Id);
+        //    //    DataTable dt_failid = new DataTable();
+        //    //    adapter_failid.Fill(dt_failid);
 
-            //    int r = 0;
-            //    int c = 0;
+        //    //    int r = 0;
+        //    //    int c = 0;
 
-            //    foreach (DataRow fail in dt_failid.Rows)
-            //    {
-            //        if (fail["Pilt"] != DBNull.Value)
-            //        {
-            //            PictureBox pictureBox = new PictureBox();
-            //            pictureBox.Image = Image.FromFile(@"..\..\Images\" + fail["Pilt"].ToString());
-            //            pictureBox.Width = pictureBox.Height = 100;
-            //            pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            //            pictureBox.Location = new System.Drawing.Point(c, r);
+        //    //    foreach (DataRow fail in dt_failid.Rows)
+        //    //    {
+        //    //        if (fail["Pilt"] != DBNull.Value)
+        //    //        {
+        //    //            PictureBox pictureBox = new PictureBox();
+        //    //            pictureBox.Image = Image.FromFile(@"..\..\Images\" + fail["Pilt"].ToString());
+        //    //            pictureBox.Width = pictureBox.Height = 100;
+        //    //            pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+        //    //            pictureBox.Location = new System.Drawing.Point(c, r);
 
-            //            c += 100 + 2; // следующий элемент справа
-            //            kategooriad.TabPages[i].Controls.Add(pictureBox);
-            //        }
-            //    }
+        //    //            c += 100 + 2; // следующий элемент справа
+        //    //            kategooriad.TabPages[i].Controls.Add(pictureBox);
+        //    //        }
+        //    //    }
 
-            //    i++;
-            //}
+        //    //    i++;
+        //    //}
 
-            kategooriad.ImageList = iconsList;
-            connect.Close();
-            this.Controls.Add(kategooriad);
-            // ====== ВЫВОД КОРЗИНЫ ======
+        //    kategooriad.ImageList = iconsList;
+        //    connect.Close();
+        //    this.Controls.Add(kategooriad);
+        //    // ====== ВЫВОД КОРЗИНЫ ======
 
-            DataGridView dgvKorv = new DataGridView();
-            dgvKorv.Location = new Point(300, 230);
-            dgvKorv.Size = new Size(500, 200);
-            dgvKorv.DataSource = null;
-            dgvKorv.DataSource = ostukorv; // ← показываем корзину!
-            this.Controls.Add(dgvKorv);
+        //    DataGridView dgvKorv = new DataGridView();
+        //    dgvKorv.Location = new Point(300, 230);
+        //    dgvKorv.Size = new Size(500, 200);
+        //    dgvKorv.DataSource = null;
+        //    dgvKorv.DataSource = ostukorv; // ← показываем корзину!
+        //    this.Controls.Add(dgvKorv);
 
 
-        }
+        //}
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -267,34 +270,67 @@ namespace Pood
                 return;
             }
 
-            DataGridViewRow row = dataGridView1.SelectedRows[0];
-            DataRowView drv = row.DataBoundItem as DataRowView;
-
+            var row = dataGridView1.SelectedRows[0];
+            var drv = row.DataBoundItem as DataRowView;
             if (drv == null)
             {
-                MessageBox.Show("Ошибка: не удалось получить данные строки.");
+                MessageBox.Show("Ошибка получения данных.");
                 return;
             }
 
-            DataRow r = drv.Row;
+            var r = drv.Row;
+            int id = Convert.ToInt32(r["Id"]);
+            int kogus = Convert.ToInt32(r["Kogus"]);
 
-            KorvToode toode = new KorvToode()
+            if (kogus <= 0)
             {
-                Id = Convert.ToInt32(r["Id"]),
-                Nimetus = r["Toodenimetus"].ToString(),
-                Kogus = Convert.ToInt32(r["Kogus"]),
-                Hind = Convert.ToDecimal(r["Hind"]),
-                Kategooria = r["Kategooria_nimetus"].ToString()
-            };
+                MessageBox.Show("Товара нет на складе!");
+                return;
+            }
 
-            ostukorv1.Add(toode);
+            // Ищем товар в корзине
+            var olemasolev = ostukorv1.FirstOrDefault(t => t.Id == id);
 
-            MessageBox.Show("Товар добавлен в корзину!");
+            if (olemasolev != null)
+            {
+                olemasolev.Kogus += 1;
+                MessageBox.Show("Количество товара в корзине увеличено!");
+            }
+            else
+            {
+                ostukorv1.Add(new KorvToode
+                {
+                    Id = id,
+                    Nimetus = r["Toodenimetus"].ToString(),
+                    Kogus = 1,
+                    Hind = Convert.ToDecimal(r["Hind"]),
+                    Kategooria = r["Kategooria_nimetus"].ToString()
+                });
+                MessageBox.Show("Товар добавлен в корзину!");
+            }
 
-            // Обновляем DataGridView корзины
+            // Обновляем базу
+            try
+            {
+                connect.Open();
+
+                var cmd = new SqlCommand("UPDATE ToodeTabel SET Kogus = Kogus - 1 WHERE Id = @id AND Kogus > 0", connect);
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.ExecuteNonQuery();
+
+                cmd = new SqlCommand("DELETE FROM ToodeTabel WHERE Id = @id AND Kogus <= 0", connect);
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                connect.Close();
+            }
+
+            NaitaAndmed();
             UpdateCartGrid();
-
         }
+
 
 
 
@@ -378,8 +414,48 @@ namespace Pood
 
         private void button1_Click(object sender, EventArgs e)
         {
+            try
+            {
+                connect.Open();
 
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT Toodenimetus FROM ToodeTabel WHERE Toodenimetus LIKE @name",
+                    connect);
+
+                cmd.Parameters.AddWithValue("@name", "%" + otsToode.Text + "%");
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                connect.Close();
+
+                if (dt.Rows.Count == 0)
+                {
+                    MessageBox.Show("Ничего не найдено!");
+                    return;
+                }
+
+                // Формируем список найденных продуктов
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("Найденные товары:\n");
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    sb.AppendLine("- " + row["Toodenimetus"].ToString());
+                }
+
+                // Выводим список в MessageBox
+                MessageBox.Show(sb.ToString(), "Результаты поиска");
+
+            }
+            catch (Exception ex)
+            {
+                connect.Close();
+                MessageBox.Show("Ошибка: " + ex.Message);
+            }
         }
+
 
         private void button8_Click_1(object sender, EventArgs e)
         {

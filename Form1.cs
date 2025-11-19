@@ -21,7 +21,10 @@ namespace Pood
        string extension = null;
 
         SqlConnection connect = new SqlConnection(
-    @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Tooded_DB.mdf;Integrated Security=True");
+    @"Data Source=(LocalDB)\MSSQLLocalDB;
+AttachDbFilename=C:\Users\edw1e\source\repos\Pood\Tooded_DB.mdf;
+Integrated Security=True;
+Connect Timeout=30;");
         SqlDataAdapter adapter_toode, adapter_kategooria;
         SqlCommand command;
         public Form1()
