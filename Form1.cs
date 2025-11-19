@@ -592,6 +592,14 @@ namespace Pood
             }
         }
 
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Form2 form2 = new Form2();
+            this.Hide();
+            form2.Show();
+
+        }
+
         public void Naitakategooriad()
         {
             connect.Open();

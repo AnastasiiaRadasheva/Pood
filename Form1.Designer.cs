@@ -50,12 +50,10 @@
             this.otsToode = new System.Windows.Forms.TextBox();
             this.Kat_box1 = new System.Windows.Forms.ComboBox();
             this.naitabtn = new System.Windows.Forms.Button();
-            this.maksab = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.ostja = new System.Windows.Forms.Label();
-            this.ostukorv = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.toode_pb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -63,9 +61,9 @@
             // 
             // toode_pb
             // 
-            this.toode_pb.Location = new System.Drawing.Point(22, 21);
+            this.toode_pb.Location = new System.Drawing.Point(22, 37);
             this.toode_pb.Name = "toode_pb";
-            this.toode_pb.Size = new System.Drawing.Size(584, 188);
+            this.toode_pb.Size = new System.Drawing.Size(584, 172);
             this.toode_pb.TabIndex = 0;
             this.toode_pb.TabStop = false;
             this.toode_pb.Click += new System.EventHandler(this.toode_pb_Click);
@@ -113,7 +111,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(22, 244);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(623, 194);
+            this.dataGridView1.Size = new System.Drawing.Size(669, 194);
             this.dataGridView1.TabIndex = 5;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellMouseEnter);
@@ -177,7 +175,7 @@
             // 
             // uuendabtn
             // 
-            this.uuendabtn.Location = new System.Drawing.Point(611, 21);
+            this.uuendabtn.Location = new System.Drawing.Point(612, 37);
             this.uuendabtn.Name = "uuendabtn";
             this.uuendabtn.Size = new System.Drawing.Size(80, 28);
             this.uuendabtn.TabIndex = 13;
@@ -187,7 +185,7 @@
             // 
             // kustutabtn
             // 
-            this.kustutabtn.Location = new System.Drawing.Point(611, 60);
+            this.kustutabtn.Location = new System.Drawing.Point(611, 73);
             this.kustutabtn.Name = "kustutabtn";
             this.kustutabtn.Size = new System.Drawing.Size(82, 28);
             this.kustutabtn.TabIndex = 14;
@@ -217,7 +215,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(2, 62);
+            this.button8.Location = new System.Drawing.Point(7, 18);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(75, 23);
             this.button8.TabIndex = 17;
@@ -228,9 +226,9 @@
             // otsToode
             // 
             this.otsToode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.otsToode.Location = new System.Drawing.Point(83, 62);
+            this.otsToode.Location = new System.Drawing.Point(88, 18);
             this.otsToode.Name = "otsToode";
-            this.otsToode.Size = new System.Drawing.Size(130, 20);
+            this.otsToode.Size = new System.Drawing.Size(66, 20);
             this.otsToode.TabIndex = 18;
             this.otsToode.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
             // 
@@ -245,7 +243,7 @@
             // 
             // naitabtn
             // 
-            this.naitabtn.Location = new System.Drawing.Point(3, 34);
+            this.naitabtn.Location = new System.Drawing.Point(7, 47);
             this.naitabtn.Name = "naitabtn";
             this.naitabtn.Size = new System.Drawing.Size(75, 22);
             this.naitabtn.TabIndex = 20;
@@ -253,77 +251,55 @@
             this.naitabtn.UseVisualStyleBackColor = true;
             this.naitabtn.Click += new System.EventHandler(this.naitabtn_Click);
             // 
-            // maksab
-            // 
-            this.maksab.Location = new System.Drawing.Point(4, 91);
-            this.maksab.Name = "maksab";
-            this.maksab.Size = new System.Drawing.Size(73, 24);
-            this.maksab.TabIndex = 21;
-            this.maksab.Text = "maksab";
-            this.maksab.UseVisualStyleBackColor = true;
-            this.maksab.Click += new System.EventHandler(this.button1_Click);
-            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.ostukorv);
-            this.panel1.Controls.Add(this.ostja);
             this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.naitabtn);
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.button8);
-            this.panel1.Controls.Add(this.maksab);
             this.panel1.Controls.Add(this.otsToode);
-            this.panel1.Location = new System.Drawing.Point(670, 244);
+            this.panel1.Controls.Add(this.naitabtn);
+            this.panel1.Location = new System.Drawing.Point(709, 244);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(216, 194);
+            this.panel1.Size = new System.Drawing.Size(177, 194);
             this.panel1.TabIndex = 22;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(3, 168);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 22;
-            this.button1.Text = "Saada arve";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // ostja
-            // 
-            this.ostja.AutoSize = true;
-            this.ostja.Font = new System.Drawing.Font("MingLiU_HKSCS-ExtB", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ostja.Location = new System.Drawing.Point(36, 2);
-            this.ostja.Name = "ostja";
-            this.ostja.Size = new System.Drawing.Size(142, 21);
-            this.ostja.TabIndex = 23;
-            this.ostja.Text = "Tere ostja!";
-            this.ostja.Click += new System.EventHandler(this.label1_Click_2);
-            // 
-            // ostukorv
-            // 
-            this.ostukorv.Location = new System.Drawing.Point(4, 121);
-            this.ostukorv.Name = "ostukorv";
-            this.ostukorv.Size = new System.Drawing.Size(73, 23);
-            this.ostukorv.TabIndex = 24;
-            this.ostukorv.Text = "ostukorv";
-            this.ostukorv.UseVisualStyleBackColor = true;
-            this.ostukorv.Click += new System.EventHandler(this.ostukorv_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(80, 39);
+            this.label1.Location = new System.Drawing.Point(4, 72);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(139, 13);
             this.label1.TabIndex = 25;
             this.label1.Text = "(näita kategooriad ja tooted)";
             this.label1.Click += new System.EventHandler(this.label1_Click_3);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(7, 156);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(73, 25);
+            this.button1.TabIndex = 26;
+            this.button1.Text = "Pood";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("MingLiU_HKSCS-ExtB", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(429, 9);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(58, 21);
+            this.label5.TabIndex = 23;
+            this.label5.Text = "Ladu";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(902, 450);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Kat_box1);
             this.Controls.Add(this.otsifailBTN);
@@ -377,12 +353,10 @@
         private System.Windows.Forms.TextBox otsToode;
         private System.Windows.Forms.ComboBox Kat_box1;
         private System.Windows.Forms.Button naitabtn;
-        private System.Windows.Forms.Button maksab;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label ostja;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button ostukorv;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label5;
     }
 }
 
